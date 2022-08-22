@@ -1,9 +1,11 @@
-const router = require("express").Router(),
-  Joi = require("joi"),
-  auth = require("../middleware/auth");
-fs = require("fs");
+const router = require("express").Router();
+const Joi = require("joi");
+const auth = require("../middleware/auth");
+const fs = require("fs");
+const _ = require("lodash");
 
-const data = require("../../user-collection.json");
+let data = require("../../user-collection.json");
+// data = data.map(user => ({}));
 
 router.get("/fetch-all-users", async (req, res, next) => {
   res.payload = data;
@@ -56,6 +58,37 @@ router.post("/add-user", async (req, res, next) => {
   return next();
 });
 
+router.get("/statistics", async (req, res, next) => {
+  // 10 top users with highest earnings
+  const sortedDATA = _.sortBy(data, "earnings");
+  sortedDATA.reverse();
 
+  const topTenUsers = sortedDATA.slice(0, 10);
+
+  const topTenCountries = topTenUsers.map((user) => user.country);
+
+  const finalResult = {};
+
+  for (let item of data) {
+    if (topTenCountries.includes(item.country)) {
+      item.earnings = parseFloat(item.earnings.replace("$", ""));
+
+      finalResult[item.country] = {
+        sum: finalResult[item.country]?.sum
+          ? finalResult[item.country].sum + item.earnings
+          : item.earnings,
+        count: finalResult[item.country]?.count ? finalResult[item.country].count + 1 : 1,
+      };
+    }
+  }
+
+  for (let item of Object.keys(finalResult)) {
+    finalResult[item].average = finalResult[item].sum / finalResult[item].count;
+  }
+
+  res.payload = finalResult;
+
+  return next();
+});
 
 module.exports = router;

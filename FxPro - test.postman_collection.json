@@ -68,6 +68,24 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "{{server}}:3000/statistics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}:3000/statistics",
+					"host": [
+						"{{server}}"
+					],
+					"port": "3000",
+					"path": [
+						"statistics"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

@@ -11,6 +11,22 @@ if (fs.existsSync(join(__dirname,global.environment+'.js'))){
     fileData    = require(path)
 }
 
+if (!fileData) {
+    console.log('Config file not found!');
+    console.log('this software try to find a config file in config folder');
+    console.log();
+    if (`${process.env.NODE_ENV}`) {
+        console.log('name should be same as your "NODE_ENV" environment variable');
+        console.log(`in this case ${process.env.NODE_ENV}.js`)
+    } else {
+        console.log('use following command to set your environment variable(Linux OS)');
+        console.log('export NODE_ENV=development')
+        console.log('')
+    }
+
+    process.exit();
+}
+
 evaluate =   (str) => {
     str  =    str.trim()
     try {
