@@ -1,0 +1,33 @@
+---
+version: '3.7'
+services:
+  app:
+    build: .
+    container_name: app
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    restart: 'unless-stopped'
+    depends_on:
+      - mongodb
+      - redis
+  mongodb:
+    image: mongo:latest
+    container_name: mongoDB
+    restart: 'unless-stopped'
+    volumes:
+      - /etc/mongod.conf:/etc/mongod.conf
+      - /logs:/var/log/mongodb/
+      - ./db:/var/lib/mongodb
+      - ./data/db:/data/db
+    command: mongod
+  redis:
+    image: redis:alpine
+    container_name: Redis
+    restart: 'unless-stopped'
+    volumes:
+      - /var/lib/redis:/var/lib/redis
+      - /etc/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./data:/data
+    command: redis-server

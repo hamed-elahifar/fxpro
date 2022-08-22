@@ -1,0 +1,73 @@
+{
+	"info": {
+		"_postman_id": "ff3fd185-9e42-46d7-832f-bf2e81ef518f",
+		"name": "FxPro - test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3350912"
+	},
+	"item": [
+		{
+			"name": "{{server}}:3000/users/fetch-all-users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}:3000/fetch-all-users",
+					"host": [
+						"{{server}}"
+					],
+					"port": "3000",
+					"path": [
+						"fetch-all-users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{server}}:3000/distinct-users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}:3000/distinct-users",
+					"host": [
+						"{{server}}"
+					],
+					"port": "3000",
+					"path": [
+						"distinct-users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{server}}:3000/users/add-user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1000,\n    \"earnings\": \"$700.00\",\n    \"country\": \"Iran\",\n    \"name\": \"Hamed\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}:3000/add-user",
+					"host": [
+						"{{server}}"
+					],
+					"port": "3000",
+					"path": [
+						"add-user"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,12 @@
+# Dependency directories
+node_modules/
+static/
+
+# Logs
+logs/*
+*.log
+
+package-lock.json
+
+data/
+db/
